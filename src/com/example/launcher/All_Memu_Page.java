@@ -1,14 +1,17 @@
 package com.example.launcher;
 
-import com.example.launcher.Main_Page.FocusListenerClass;
-import com.example.launcher.Main_Page.HoverListenerClass;
-
+import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.DragShadowBuilder;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -27,6 +30,163 @@ public class All_Memu_Page extends Fragment {
 	private FocusListenerClass mFocusListener;
 	private HoverListenerClass mHoverListener;
 	TextView testview;
+	private static final String IMAGEVIEW_TAG = "The Android Logo";
+	private OnTouchListener mButtonTouch = new OnTouchListener() {
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			// TODO Auto-generated method stub
+			int action = event.getAction();
+			if (action == MotionEvent.ACTION_DOWN) {
+				switch (v.getId()) {
+				case R.id.allmenu_radio:
+					mRadio_list_icon
+							.setBackgroundResource(R.drawable.allmenu_radio_foc);
+					break;
+				case R.id.allmenu_audio:
+					mAudio_list_icon
+							.setBackgroundResource(R.drawable.allmenu_audio_foc);
+					break;
+				case R.id.allmenu_video:
+					mVideo_list_icon
+							.setBackgroundResource(R.drawable.allmenu_video_foc);
+					break;
+				case R.id.allmenu_gallery:
+					mGallery_list_icon
+							.setBackgroundResource(R.drawable.allmenu_dmb_foc);
+					break;
+				case R.id.allmenu_internet:
+					mInternet_list_icon
+							.setBackgroundResource(R.drawable.allmenu_internet_foc);
+					break;
+				case R.id.allmenu_setting:
+					mSetting_list_icon
+							.setBackgroundResource(R.drawable.allmenu_setting_foc);
+					break;
+				case R.id.allmenu_clock:
+					mClock_list_icon
+							.setBackgroundResource(R.drawable.allmenu_phone_foc);
+					break;
+				}
+			}
+			if (action == MotionEvent.ACTION_UP) {
+
+				switch (v.getId()) {
+				case R.id.allmenu_radio:
+					mRadio_list_icon
+							.setBackgroundResource(R.drawable.allmenu_radio_nor);
+					break;
+				case R.id.allmenu_audio:
+					mAudio_list_icon
+							.setBackgroundResource(R.drawable.allmenu_audio_nor);
+					break;
+				case R.id.allmenu_video:
+					mVideo_list_icon
+							.setBackgroundResource(R.drawable.allmenu_video_nor);
+					break;
+				case R.id.allmenu_gallery:
+					mGallery_list_icon
+							.setBackgroundResource(R.drawable.allmenu_dmb_nor);
+					break;
+				case R.id.allmenu_internet:
+					mInternet_list_icon
+							.setBackgroundResource(R.drawable.allmenu_internet_nor);
+					break;
+				case R.id.allmenu_setting:
+					mSetting_list_icon
+							.setBackgroundResource(R.drawable.allmenu_setting_nor);
+					break;
+				case R.id.allmenu_clock:
+					mClock_list_icon
+							.setBackgroundResource(R.drawable.allmenu_phone_nor);
+					break;
+				}
+			}
+
+			return false;
+		}
+	};
+	private OnLongClickListener mLongButtonClick = new OnLongClickListener() {
+
+		@Override
+		public boolean onLongClick(View view) {
+
+			// TODO Auto-generated method stub
+			switch (view.getId()) {
+			case R.id.allmenu_radio: {
+				mRadio_list_icon
+				.setBackgroundResource(R.drawable.allmenu_radio_nor);
+				//Main_Page.DRAG_DATA = Main_Page.RADIO_ID;
+				Main_Page.DRAG_DATA = Main_Page.DRAG_RADIO;
+				dragStart(view);
+			}
+				break;
+			case R.id.allmenu_audio: {
+				mAudio_list_icon
+				.setBackgroundResource(R.drawable.allmenu_audio_nor);
+				//Main_Page.DRAG_DATA = Main_Page.AUDIO_ID;
+				Main_Page.DRAG_DATA = Main_Page.DRAG_AUDIO;
+				dragStart(view);
+			}
+				break;
+			case R.id.allmenu_video: {
+				mVideo_list_icon
+				.setBackgroundResource(R.drawable.allmenu_video_nor);
+				//Main_Page.DRAG_DATA = Main_Page.VIDEO_ID;
+				Main_Page.DRAG_DATA = Main_Page.DRAG_VIDEO;
+				dragStart(view);
+			}
+				break;
+			case R.id.allmenu_gallery: {
+				mGallery_list_icon
+				.setBackgroundResource(R.drawable.allmenu_dmb_nor);
+				//Main_Page.DRAG_DATA = Main_Page.GALLERY_ID;
+				Main_Page.DRAG_DATA = Main_Page.DRAG_GALLERY;
+				dragStart(view);
+			}
+				break;
+			case R.id.allmenu_internet: {
+				mInternet_list_icon
+				.setBackgroundResource(R.drawable.allmenu_internet_nor);
+				//Main_Page.DRAG_DATA = Main_Page.INTERNET_ID;
+				Main_Page.DRAG_DATA = Main_Page.DRAG_INTERNET;
+				dragStart(view);
+			}
+				break;
+			case R.id.allmenu_setting: {
+				mSetting_list_icon
+				.setBackgroundResource(R.drawable.allmenu_setting_nor);
+				//Main_Page.DRAG_DATA = Main_Page.SETTING_ID;
+				Main_Page.DRAG_DATA = Main_Page.DRAG_SETTING;
+				dragStart(view);
+			}
+				break;
+			case R.id.allmenu_clock: {
+				mClock_list_icon
+				.setBackgroundResource(R.drawable.allmenu_phone_nor);
+				//Main_Page.DRAG_DATA = Main_Page.CLOCK_ID;
+				Main_Page.DRAG_DATA = Main_Page.DRAG_CLOCK;
+				dragStart(view);
+			}
+				break;
+			}
+			return true;
+		}
+
+		public void dragStart(View view) {
+			ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
+
+			String[] mimeTypes = { ClipDescription.MIMETYPE_TEXT_PLAIN };
+			ClipData data = new ClipData(view.getTag().toString(), mimeTypes,
+					item);
+			DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+
+			view.startDrag(data, shadowBuilder, view, 0);
+
+			view.setVisibility(View.VISIBLE);
+			MainActivity.mViewPager.setCurrentItem(0);
+		}
+	};
 
 	private OnClickListener mButtonClick = new OnClickListener() {
 		public void onClick(View v) {
@@ -375,10 +535,10 @@ public class All_Memu_Page extends Fragment {
 
 		mlistView = (RelativeLayout) inflater.inflate(R.layout.listpage_layout,
 				container, false);
-		
-		mFocusListener = new FocusListenerClass();
-		mHoverListener = new HoverListenerClass();
-		
+
+		//mFocusListener = new FocusListenerClass();
+		//mHoverListener = new HoverListenerClass();
+
 		mRadio_list_icon = (ImageView) mlistView
 				.findViewById(R.id.allmenu_radio);
 		mAudio_list_icon = (ImageView) mlistView
@@ -394,37 +554,62 @@ public class All_Memu_Page extends Fragment {
 		mClock_list_icon = (ImageView) mlistView
 				.findViewById(R.id.allmenu_clock);
 		testview = (TextView) mlistView.findViewById(R.id.testview);
+		mRadio_list_icon.setOnLongClickListener(mLongButtonClick);
+		mRadio_list_icon.setTag(IMAGEVIEW_TAG);
 
-		
-		mRadio_list_icon.setOnHoverListener(mHoverListener);
+		mAudio_list_icon.setOnLongClickListener(mLongButtonClick);
+		mAudio_list_icon.setTag(IMAGEVIEW_TAG);
+
+		mVideo_list_icon.setOnLongClickListener(mLongButtonClick);
+		mVideo_list_icon.setTag(IMAGEVIEW_TAG);
+
+		mGallery_list_icon.setOnLongClickListener(mLongButtonClick);
+		mGallery_list_icon.setTag(IMAGEVIEW_TAG);
+
+		mInternet_list_icon.setOnLongClickListener(mLongButtonClick);
+		mInternet_list_icon.setTag(IMAGEVIEW_TAG);
+
+		mSetting_list_icon.setOnLongClickListener(mLongButtonClick);
+		mSetting_list_icon.setTag(IMAGEVIEW_TAG);
+
+		mClock_list_icon.setOnLongClickListener(mLongButtonClick);
+		mClock_list_icon.setTag(IMAGEVIEW_TAG);
+
+		/*mRadio_list_icon.setOnHoverListener(mHoverListener);
 		mRadio_list_icon.setOnClickListener(mButtonClick);
 		mRadio_list_icon.setOnClickListener(mButtonClick);
-		
+
 		mAudio_list_icon.setOnHoverListener(mHoverListener);
 		mAudio_list_icon.setOnClickListener(mButtonClick);
 		mAudio_list_icon.setOnClickListener(mButtonClick);
-		
+
 		mVideo_list_icon.setOnHoverListener(mHoverListener);
 		mVideo_list_icon.setOnClickListener(mButtonClick);
 		mVideo_list_icon.setOnClickListener(mButtonClick);
-		
+
 		mGallery_list_icon.setOnHoverListener(mHoverListener);
 		mGallery_list_icon.setOnClickListener(mButtonClick);
 		mGallery_list_icon.setOnClickListener(mButtonClick);
-		
+
 		mInternet_list_icon.setOnHoverListener(mHoverListener);
 		mInternet_list_icon.setOnClickListener(mButtonClick);
 		mInternet_list_icon.setOnClickListener(mButtonClick);
-		
+
 		mSetting_list_icon.setOnHoverListener(mHoverListener);
 		mSetting_list_icon.setOnClickListener(mButtonClick);
 		mSetting_list_icon.setOnClickListener(mButtonClick);
-		
+
 		mClock_list_icon.setOnHoverListener(mHoverListener);
 		mClock_list_icon.setOnClickListener(mButtonClick);
-		mClock_list_icon.setOnClickListener(mButtonClick);
+		mClock_list_icon.setOnClickListener(mButtonClick);*/
 		
-	
+		mRadio_list_icon.setOnTouchListener(mButtonTouch);
+		mAudio_list_icon.setOnTouchListener(mButtonTouch);
+		mVideo_list_icon.setOnTouchListener(mButtonTouch);
+		mGallery_list_icon.setOnTouchListener(mButtonTouch);
+		mSetting_list_icon.setOnTouchListener(mButtonTouch);
+		mInternet_list_icon.setOnTouchListener(mButtonTouch);
+		mClock_list_icon.setOnTouchListener(mButtonTouch);
 		return mlistView;
 	}
 

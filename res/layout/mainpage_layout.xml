@@ -5,22 +5,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/main_bg" >
 
-    <Button
-        android:id="@+id/chkdeletebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:text="삭제" />
-
-    <Button
-        android:id="@+id/chkcompletebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:text="완료"
-        android:visibility="invisible" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -75,7 +59,5 @@
             android:visibility="invisible" >
         </RelativeLayout>
     </FrameLayout>
-
-  
 
 </RelativeLayout>
