@@ -1,20 +1,24 @@
 package com.example.launcher;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnDragListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -115,12 +119,25 @@ public class Main_Page extends Fragment {
 	private int[] iPostion8_Margin = new int[2];
 
 	private int[] iIcon_chk = new int[7];
+	
 
+	private TextView mMusic_title;
+	public static Button execute_music_title;
+	private ProgressBar music_progressbar;
+	public static int music_max_length;
+	public static int music_cur_pos;
+	
+	private Handler mHandler;
 	TextView text;
 	DisplayMetrics dm;
 	ImageView view;
 	int select;
+	public static int mflag;
 	View testview;
+	
+	static String name;
+
+	
 	private OnDragListener mButtonDrag = new OnDragListener() {
 
 		@Override
@@ -285,72 +302,96 @@ public class Main_Page extends Fragment {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			text = (TextView) getActivity().findViewById(R.id.View1);
-			mRadioWidget = getActivity().findViewById(R.id.widget_radio);
-			mAudioWidget = getActivity().findViewById(R.id.widget_audio);
-			mVideoWidget = getActivity().findViewById(R.id.widget_video);
-			mClockWidget = getActivity().findViewById(R.id.digital_clock);
 
+			/*
+			 * mRadioWidget = getActivity().findViewById(R.id.widget_radio);
+			 * mAudioWidget = getActivity().findViewById(R.id.widget_audio);
+			 * mVideoWidget = getActivity().findViewById(R.id.widget_video);
+			 * mClockWidget = getActivity().findViewById(R.id.digital_clock);
+			 */
+			// name=MainActivity.musicname;
 			switch (v.getId()) {
 			case RADIO_ID: {
-
+			    
 				text.setText("IMAGE");
-				mRadioWidget.setVisibility(View.VISIBLE);
-				mAudioWidget.setVisibility(View.INVISIBLE);
-				mVideoWidget.setVisibility(View.INVISIBLE);
-				mClockWidget.setVisibility(View.INVISIBLE);
-				mRadioicon.setBackground(mRadioSeletor);
 
+				/*
+				 * mRadioWidget.setVisibility(View.VISIBLE);
+				 * mAudioWidget.setVisibility(View.INVISIBLE);
+				 * mVideoWidget.setVisibility(View.INVISIBLE);
+				 * mClockWidget.setVisibility(View.INVISIBLE);
+				 */
+
+				mRadioicon.setBackground(mRadioSeletor);
 			}
 				break;
 			case CUSTOM_RADIO_ID: {
 
 				text.setText("IMAGE");
-				mRadioWidget.setVisibility(View.VISIBLE);
-				mAudioWidget.setVisibility(View.INVISIBLE);
-				mVideoWidget.setVisibility(View.INVISIBLE);
-				mClockWidget.setVisibility(View.INVISIBLE);
+				/*
+				 * mRadioWidget.setVisibility(View.VISIBLE);
+				 * mAudioWidget.setVisibility(View.INVISIBLE);
+				 * mVideoWidget.setVisibility(View.INVISIBLE);
+				 * mClockWidget.setVisibility(View.INVISIBLE);
+				 */
 				mRadioicon_Custom.setBackground(mRadioSeletor);
 
 			}
 				break;
 			case AUDIO_ID: {
 				select = 1;
-				text.setText("AUDIO");
-				mRadioWidget.setVisibility(View.INVISIBLE);
-				mAudioWidget.setVisibility(View.VISIBLE);
-				mVideoWidget.setVisibility(View.INVISIBLE);
-				mClockWidget.setVisibility(View.INVISIBLE);
+				// text.setText("AUDIO");
+				// name=MainActivity.musicname;
+				// text.setText(name);
+
+				/*
+				 * mRadioWidget.setVisibility(View.INVISIBLE);
+				 * mAudioWidget.setVisibility(View.VISIBLE);
+				 * mVideoWidget.setVisibility(View.INVISIBLE);
+				 * mClockWidget.setVisibility(View.INVISIBLE);
+				 */
+				Intent i = new Intent();
+				i.setClassName("com.glowingpigs.tutorialstreamaudiopart1b",
+						"com.glowingpigs.tutorialstreamaudiopart1b.MyActivity");
+				// i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(i);
+
 				mAudioicon.setBackground(mAudioSeletor);
 			}
 				break;
 			case CUSTOM_AUDIO_ID: {
 				select = 1;
 				text.setText("AUDIO");
-				mRadioWidget.setVisibility(View.INVISIBLE);
-				mAudioWidget.setVisibility(View.VISIBLE);
-				mVideoWidget.setVisibility(View.INVISIBLE);
-				mClockWidget.setVisibility(View.INVISIBLE);
+				/*
+				 * mRadioWidget.setVisibility(View.INVISIBLE);
+				 * mAudioWidget.setVisibility(View.VISIBLE);
+				 * mVideoWidget.setVisibility(View.INVISIBLE);
+				 * mClockWidget.setVisibility(View.INVISIBLE);
+				 */
 				mAudioicon_Custom.setBackground(mAudioSeletor);
 			}
 				break;
 			case VIDEO_ID: {
 				select = 0;
 				text.setText("VIDEO");
-				mRadioWidget.setVisibility(View.INVISIBLE);
-				mAudioWidget.setVisibility(View.INVISIBLE);
-				mVideoWidget.setVisibility(View.VISIBLE);
-				mClockWidget.setVisibility(View.INVISIBLE);
+				/*
+				 * mRadioWidget.setVisibility(View.INVISIBLE);
+				 * mAudioWidget.setVisibility(View.INVISIBLE);
+				 * mVideoWidget.setVisibility(View.VISIBLE);
+				 * mClockWidget.setVisibility(View.INVISIBLE);
+				 */
 				mVideoicon.setBackground(mVideoSeletor);
 			}
 				break;
 			case CUSTOM_VIDEO_ID: {
 				select = 0;
 				text.setText("VIDEO");
-				mRadioWidget.setVisibility(View.INVISIBLE);
-				mAudioWidget.setVisibility(View.INVISIBLE);
-				mVideoWidget.setVisibility(View.VISIBLE);
-				mClockWidget.setVisibility(View.INVISIBLE);
+				/*
+				 * mRadioWidget.setVisibility(View.INVISIBLE);
+				 * mAudioWidget.setVisibility(View.INVISIBLE);
+				 * mVideoWidget.setVisibility(View.VISIBLE);
+				 * mClockWidget.setVisibility(View.INVISIBLE);
+				 */
 				mVideoicon_Custom.setBackground(mVideoSeletor);
 			}
 				break;
@@ -368,6 +409,11 @@ public class Main_Page extends Fragment {
 			case INTERNET_ID: {
 				select = 0;
 				text.setText("INTERNET");
+				Intent i = new Intent();
+				i.setClassName("com.example.browser",
+						"com.example.browser.BrowserActivity");
+				startActivity(i);
+
 				mInterneticon.setBackground(mInternetSeletor);
 			}
 
@@ -395,10 +441,12 @@ public class Main_Page extends Fragment {
 			case CLOCK_ID: {
 				select = 0;
 				text.setText("CLOCK");
-				mRadioWidget.setVisibility(View.INVISIBLE);
-				mAudioWidget.setVisibility(View.INVISIBLE);
-				mVideoWidget.setVisibility(View.INVISIBLE);
-				mClockWidget.setVisibility(View.VISIBLE);
+				/*
+				 * mRadioWidget.setVisibility(View.INVISIBLE);
+				 * mAudioWidget.setVisibility(View.INVISIBLE);
+				 * mVideoWidget.setVisibility(View.INVISIBLE);
+				 * mClockWidget.setVisibility(View.VISIBLE);
+				 */
 				mClockicon.setBackground(mClockSeletor);
 
 			}
@@ -406,46 +454,95 @@ public class Main_Page extends Fragment {
 			case CUSTOM_CLOCK_ID: {
 				select = 0;
 				text.setText("CLOCK");
-				mRadioWidget.setVisibility(View.INVISIBLE);
-				mAudioWidget.setVisibility(View.INVISIBLE);
-				mVideoWidget.setVisibility(View.INVISIBLE);
-				mClockWidget.setVisibility(View.VISIBLE);
+				/*
+				 * mRadioWidget.setVisibility(View.INVISIBLE);
+				 * mAudioWidget.setVisibility(View.INVISIBLE);
+				 * mVideoWidget.setVisibility(View.INVISIBLE);
+				 * mClockWidget.setVisibility(View.VISIBLE);
+				 */
 				mClockicon_Custom.setBackground(mClockSeletor);
 
 			}
 				break;
-
+			case R.id.music_title: {
+				mMusic_title.setText(name);
+			}
+				break;
 			}
 
-			/*switch (select) {
-			case 0:
-				Intent i = new Intent();
-				i.setClassName("com.example.clock_app",
-						"com.example.clock_app.ClockMainActivity");
-				startActivity(i);
-				break;
-			case 1:
-				Intent imusic = new Intent();
-				imusic.setClassName("com.android.music",
-						"com.android.music.MusicBrowserActivity");
-				startActivity(imusic);
-				break;
-
-			}*/
+			/*
+			 * switch (select) { case 0: Intent i = new Intent();
+			 * i.setClassName("com.example.clock_app",
+			 * "com.example.clock_app.ClockMainActivity"); startActivity(i);
+			 * break; case 1: Intent imusic = new Intent();
+			 * imusic.setClassName("com.android.music",
+			 * "com.android.music.MusicBrowserActivity"); startActivity(imusic);
+			 * break;
+			 * 
+			 * }
+			 */
 
 		}
 
 	};
 
+
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+ 
 		mV = (RelativeLayout) inflater.inflate(R.layout.mainpage_layout,
 				container, false);
 		mlayout = (RelativeLayout) mV.findViewById(R.id.main_page);
-		mWidgetView = (ViewGroup) mV.findViewById(R.id.widget_layout);
+		// mWidgetView = (ViewGroup) mV.findViewById(R.id.widget_layout);
 		dm = getResources().getDisplayMetrics();
-
+		
+		execute_music_title=(Button)mV.findViewById(R.id.music_title);
+		execute_music_title.setOnClickListener(mButtonClick);
+		
+		mMusic_title = (TextView) mV.findViewById(R.id.widget_audio_text);
+		mMusic_title.setSelected(true);
+		
+		//music_progressbar=(ProgressBar)mV.findViewById(R.id.music_progressbar);
+		//mHandler=new Handler();
+		
+		text = (TextView) mV.findViewById(R.id.View1);
+		 
+		/*Thread thread=new Thread()
+		{
+			
+			public void run()
+			{
+				while(true)
+				{
+					Runnable callback=new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							music_progressbar.setMax(music_max_length);
+							music_progressbar.setProgress(music_cur_pos);
+							
+							
+						}
+					};
+					
+					Message message=Message.obtain(mHandler,callback);
+					mHandler.sendMessage(message);
+					
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+					
+				
+				}
+			}
+			
+		};
+		thread.start();*/
 		mRadioSeletor = new StateListDrawable();
 		mAudioSeletor = new StateListDrawable();
 		mVideoSeletor = new StateListDrawable();
@@ -459,15 +556,15 @@ public class Main_Page extends Fragment {
 		iPostion1_Margin[LEFT] = Math.round(440 * dm.density);
 		iPostion2_Margin[TOP] = Math.round(15 * dm.density);
 		iPostion2_Margin[LEFT] = Math.round(665 * dm.density);
-		iPostion3_Margin[TOP] = Math.round(105 * dm.density);
+		iPostion3_Margin[TOP] = Math.round(115 * dm.density);
 		iPostion3_Margin[LEFT] = Math.round(820 * dm.density);
-		iPostion4_Margin[TOP] = Math.round(230 * dm.density);
+		iPostion4_Margin[TOP] = Math.round(270 * dm.density);
 		iPostion4_Margin[LEFT] = Math.round(690 * dm.density);
-		iPostion5_Margin[TOP] = Math.round(260 * dm.density);
+		iPostion5_Margin[TOP] = Math.round(300 * dm.density);
 		iPostion5_Margin[LEFT] = Math.round(440 * dm.density);
-		iPostion6_Margin[TOP] = Math.round(230 * dm.density);
+		iPostion6_Margin[TOP] = Math.round(270 * dm.density);
 		iPostion6_Margin[LEFT] = Math.round(165 * dm.density);
-		iPostion7_Margin[TOP] = Math.round(105 * dm.density);
+		iPostion7_Margin[TOP] = Math.round(115 * dm.density);
 		iPostion7_Margin[LEFT] = Math.round(50 * dm.density);
 
 		mRadioSeletor.addState(new int[] { android.R.attr.state_pressed },
@@ -550,6 +647,10 @@ public class Main_Page extends Fragment {
 
 	}
 
+
+
+	
+
 	public void createClockIcon() {
 
 		mClockicon = new ImageView(getActivity());
@@ -559,16 +660,18 @@ public class Main_Page extends Fragment {
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-		iClock_Icon_Margin[TOP] = Math.round(105 * dm.density);
+		iClock_Icon_Margin[TOP] = Math.round(115 * dm.density);
 		clockparams.topMargin = iClock_Icon_Margin[TOP];
 		iClock_Icon_Margin[LEFT] = Math.round(50 * dm.density);
 		clockparams.leftMargin = iClock_Icon_Margin[LEFT];
 
 		mClockicon.setLayoutParams(clockparams);
 		mClockicon.setClickable(true);
+		mClockicon.setFocusable(true);
 		mlayout.addView(mClockicon);
 		mClockicon.setOnDragListener(mButtonDrag);
 		mClockicon.setOnClickListener(mButtonClick);
+
 		// mClockicon.setOnTouchListener(mButtonTouch);
 		// mClockicon.setOnHoverListener(mHoverListener);
 
@@ -584,7 +687,7 @@ public class Main_Page extends Fragment {
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-		iSetting_Icon_Margin[TOP] = Math.round(230 * dm.density);
+		iSetting_Icon_Margin[TOP] = Math.round(270 * dm.density);
 		settingparams.topMargin = iSetting_Icon_Margin[TOP];
 		iSetting_Icon_Margin[LEFT] = Math.round(165 * dm.density);
 		settingparams.leftMargin = iSetting_Icon_Margin[LEFT];
@@ -592,8 +695,10 @@ public class Main_Page extends Fragment {
 		mSettingicon.setLayoutParams(settingparams);
 		mSettingicon.setClickable(true);
 		mlayout.addView(mSettingicon);
+		mSettingicon.setFocusable(true);
 		mSettingicon.setOnDragListener(mButtonDrag);
 		mSettingicon.setOnClickListener(mButtonClick);
+
 		// mSettingicon.setOnTouchListener(mButtonTouch);
 		// mSettingicon.setOnHoverListener(mHoverListener);
 		iIcon_chk[5] = 1;
@@ -608,13 +713,14 @@ public class Main_Page extends Fragment {
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-		iInternet_Icon_Margin[TOP] = Math.round(260 * dm.density);
+		iInternet_Icon_Margin[TOP] = Math.round(300 * dm.density);
 		internetparams.topMargin = iInternet_Icon_Margin[TOP];
 		iInternet_Icon_Margin[LEFT] = Math.round(440 * dm.density);
 		internetparams.leftMargin = iInternet_Icon_Margin[LEFT];
 
 		mInterneticon.setLayoutParams(internetparams);
 		mInterneticon.setClickable(true);
+		mInterneticon.setFocusable(true);
 		mlayout.addView(mInterneticon);
 		mInterneticon.setOnDragListener(mButtonDrag);
 		mInterneticon.setOnClickListener(mButtonClick);
@@ -622,6 +728,30 @@ public class Main_Page extends Fragment {
 		// mInterneticon.setOnHoverListener(mHoverListener);
 		iIcon_chk[4] = 1;
 	}
+
+	/*
+	 * public void createGalleryIcon() {
+	 * 
+	 * mGalleryicon= new ImageView(getActivity());
+	 * mGalleryicon.setId(GALLERY_ID);
+	 * mGalleryicon.setBackgroundResource(R.drawable.main_btn_dmb_nor);
+	 * galleryparams = new RelativeLayout.LayoutParams(
+	 * RelativeLayout.LayoutParams.WRAP_CONTENT,
+	 * RelativeLayout.LayoutParams.WRAP_CONTENT);
+	 * 
+	 * iGallery_Icon_Margin[TOP] = Math.round(270 * dm.density);
+	 * galleryparams.topMargin = iGallery_Icon_Margin[TOP];
+	 * iGallery_Icon_Margin[LEFT] = Math.round(690 * dm.density);
+	 * galleryparams.leftMargin = iGallery_Icon_Margin[LEFT];
+	 * mGalleryicon.setLayoutParams(galleryparams);
+	 * 
+	 * mGalleryicon.setClickable(true); mGalleryicon.setFocusable(true);
+	 * mlayout.addView(mGalleryicon);
+	 * mGalleryicon.setOnDragListener(mButtonDrag);
+	 * mGalleryicon.setOnClickListener(mButtonClick); iIcon_chk[3] = 1;
+	 * 
+	 * }
+	 */
 
 	public void createGalleryIcon() {
 
@@ -632,19 +762,18 @@ public class Main_Page extends Fragment {
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-		iGallery_Icon_Margin[TOP] = Math.round(230 * dm.density);
+		iGallery_Icon_Margin[TOP] = Math.round(270 * dm.density);
 		galleryparams.topMargin = iGallery_Icon_Margin[TOP];
 		iGallery_Icon_Margin[LEFT] = Math.round(690 * dm.density);
 		galleryparams.leftMargin = iGallery_Icon_Margin[LEFT];
-
 		mGalleryicon.setLayoutParams(galleryparams);
+
 		mGalleryicon.setClickable(true);
 		mlayout.addView(mGalleryicon);
 		mGalleryicon.setOnDragListener(mButtonDrag);
 		mGalleryicon.setOnClickListener(mButtonClick);
-		// mGalleryicon.setOnTouchListener(mButtonTouch);
-		// mGalleryicon.setOnHoverListener(mHoverListener);
 		iIcon_chk[3] = 1;
+
 	}
 
 	public void createVideoIcon() {
@@ -655,13 +784,14 @@ public class Main_Page extends Fragment {
 		videoparams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		iVideo_Icon_Margin[TOP] = Math.round(105 * dm.density);
+		iVideo_Icon_Margin[TOP] = Math.round(115 * dm.density);
 		videoparams.topMargin = iVideo_Icon_Margin[TOP];
 		iVideo_Icon_Margin[LEFT] = Math.round(820 * dm.density);
 		videoparams.leftMargin = iVideo_Icon_Margin[LEFT];
 
 		mVideoicon.setLayoutParams(videoparams);
 		mVideoicon.setClickable(true);
+		mVideoicon.setFocusable(true);
 		mlayout.addView(mVideoicon);
 		mVideoicon.setOnDragListener(mButtonDrag);
 		mVideoicon.setOnClickListener(mButtonClick);
@@ -685,6 +815,7 @@ public class Main_Page extends Fragment {
 
 		mAudioicon.setLayoutParams(audioparams);
 		mAudioicon.setClickable(true);
+		mAudioicon.setFocusable(true);
 		mlayout.addView(mAudioicon);
 		mAudioicon.setOnDragListener(mButtonDrag);
 		mAudioicon.setOnClickListener(mButtonClick);
@@ -709,6 +840,7 @@ public class Main_Page extends Fragment {
 
 		mRadioicon.setLayoutParams(radioparams);
 		mRadioicon.setClickable(true);
+		mRadioicon.setFocusable(true);
 		mlayout.addView(mRadioicon);
 
 		iIcon_chk[0] = 1;

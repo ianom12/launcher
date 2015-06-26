@@ -15,49 +15,73 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="test" />
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:maxWidth="30dp"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="testddddddddddddddddddd"
+        android:textColor="#FFFFFFFF" />
+
+    <Button
+        android:id="@+id/music_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible" />
 
     <FrameLayout
         android:id="@+id/widget_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" >
+        android:layout_width="350dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="160dp" >
 
         <RelativeLayout
             android:id="@+id/widget_audio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:background="@drawable/widget_title_audio"
-            android:visibility="invisible" >
-            
-           
-        </RelativeLayout>
+            android:layout_width="350dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="110dp"
+            android:visibility="visible" >
 
-        <RelativeLayout
-            android:id="@+id/widget_radio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:background="@drawable/widget_title_radio"
-            android:visibility="invisible" >
-        </RelativeLayout>
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/widget_title_audio" />
 
-        <DigitalClock
-            android:id="@+id/digital_clock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:textColor="#FFF"
-            android:textSize="70dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="113dp"
+                android:layout_marginTop="80dp"
+                android:background="@drawable/icon_widget_song" />
 
-        <RelativeLayout
-            android:id="@+id/widget_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:background="@drawable/widget_title_video"
-            android:visibility="invisible" >
+            <TextView
+                android:id="@+id/widget_audio_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="140dp"
+                android:layout_marginTop="80dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxWidth="200dp"
+                android:singleLine="true"
+                android:textColor="#FFFFFFFF"
+                android:textSize="20dp" />
+
+            <ProgressBar
+                android:id="@+id/music_progressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="115dp"
+                android:layout_marginTop="110dp"
+                android:max="1000"/>
+                
         </RelativeLayout>
     </FrameLayout>
 

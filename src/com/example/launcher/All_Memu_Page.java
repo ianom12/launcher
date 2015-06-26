@@ -297,7 +297,7 @@ public class All_Memu_Page extends Fragment {
 
 			}
 				break;
-			case R.id.digital_clock: {
+			/*case R.id.digital_clock: {
 
 				if (hasFocus == true) {
 
@@ -318,8 +318,8 @@ public class All_Memu_Page extends Fragment {
 
 				}
 
-			}
-				break;
+			}*/
+				//break;
 			}
 
 		}

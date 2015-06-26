@@ -87,7 +87,7 @@ public final class R {
     }
     public static final class id {
         public static final int View1=0x7f08000a;
-        public static final int action_settings=0x7f080011;
+        public static final int action_settings=0x7f080012;
         public static final int allmenu_audio=0x7f080003;
         public static final int allmenu_clock=0x7f080008;
         public static final int allmenu_gallery=0x7f080005;
@@ -95,15 +95,16 @@ public final class R {
         public static final int allmenu_radio=0x7f080002;
         public static final int allmenu_setting=0x7f080007;
         public static final int allmenu_video=0x7f080004;
-        public static final int digital_clock=0x7f08000e;
+        public static final int imageView1=0x7f08000e;
         public static final int list_page=0x7f080000;
         public static final int main_page=0x7f080009;
-        public static final int pager=0x7f080010;
+        public static final int music_progressbar=0x7f080010;
+        public static final int music_title=0x7f08000b;
+        public static final int pager=0x7f080011;
         public static final int testview=0x7f080001;
-        public static final int widget_audio=0x7f08000c;
-        public static final int widget_layout=0x7f08000b;
-        public static final int widget_radio=0x7f08000d;
-        public static final int widget_video=0x7f08000f;
+        public static final int widget_audio=0x7f08000d;
+        public static final int widget_audio_text=0x7f08000f;
+        public static final int widget_layout=0x7f08000c;
     }
     public static final class layout {
         public static final int allmenu_layout=0x7f030000;
