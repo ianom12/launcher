@@ -10,12 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="test" />
-
+	
     <ScrollView
+        android:id="@+id/sview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:scrollbars="@null">  
+        android:layout_alignParentLeft="true"
+        android:scrollbars="@null" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,51 +27,58 @@
                 android:id="@+id/allmenu_radio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:background="@drawable/allmenu_radio_nor" />
+                android:background="@drawable/allmenu_radio_nor"
+                android:clickable="true" />
 
             <ImageView
                 android:id="@+id/allmenu_audio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:background="@drawable/allmenu_audio_nor" />
+                android:background="@drawable/allmenu_audio_nor"
+                android:clickable="true" />
 
             <ImageView
                 android:id="@+id/allmenu_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:background="@drawable/allmenu_video_nor" />
+                android:background="@drawable/allmenu_video_nor"
+                android:clickable="true" />
 
             <ImageView
                 android:id="@+id/allmenu_gallery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:background="@drawable/allmenu_dmb_nor" />
+                android:background="@drawable/allmenu_dmb_nor"
+                android:clickable="true" />
 
             <ImageView
                 android:id="@+id/allmenu_internet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:background="@drawable/allmenu_internet_nor" />
+                android:background="@drawable/allmenu_internet_nor"
+                android:clickable="true" />
 
             <ImageView
                 android:id="@+id/allmenu_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:background="@drawable/allmenu_setting_nor" />
+                android:background="@drawable/allmenu_setting_nor"
+                android:clickable="true" />
 
             <ImageView
                 android:id="@+id/allmenu_clock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:background="@drawable/allmenu_phone_nor" />
+                android:background="@drawable/allmenu_phone_nor"
+                android:clickable="true" />
         </LinearLayout>
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/viewer_fragment_container"
+       	android:layout_alignParentRight="true"
+       	android:layout_width="700dp"
+        android:layout_height="match_parent"
+         />
 
 </RelativeLayout>

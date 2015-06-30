@@ -2,16 +2,15 @@ package com.example.launcher;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -31,7 +30,8 @@ public class All_Memu_Page extends Fragment {
 	private HoverListenerClass mHoverListener;
 	TextView testview;
 	private static final String IMAGEVIEW_TAG = "The Android Logo";
-
+	
+	
 	private OnLongClickListener mLongButtonClick = new OnLongClickListener() {
 
 		@Override
@@ -113,11 +113,21 @@ public class All_Memu_Page extends Fragment {
 			case R.id.allmenu_radio: {
 				testview.setText("radio");
 				mRadio_list_icon.setBackgroundResource(R.drawable.radio_icon);
+				Fragment frag=new TestFragment1();
+				FragmentTransaction transaction = getFragmentManager()
+						.beginTransaction();
+				transaction.add(R.id.viewer_fragment_container, frag ).commit();
+
+				
 			}
 				break;
 			case R.id.allmenu_audio: {
 				testview.setText("audio");
 				mAudio_list_icon.setBackgroundResource(R.drawable.audio_icon);
+				Fragment frag=new TestFragment2();
+				FragmentTransaction transaction = getFragmentManager()
+						.beginTransaction();
+				transaction.add(R.id.viewer_fragment_container, frag ).commit();
 			}
 				break;
 			case R.id.allmenu_video: {
@@ -146,6 +156,7 @@ public class All_Memu_Page extends Fragment {
 			case R.id.allmenu_clock: {
 				testview.setText("clock");
 				mClock_list_icon.setBackgroundResource(R.drawable.clock_icon);
+				
 			}
 				break;
 			}
@@ -467,7 +478,9 @@ public class All_Memu_Page extends Fragment {
 
 		// mFocusListener = new FocusListenerClass();
 		// mHoverListener = new HoverListenerClass();
-
+		
+		
+		
 		mRadio_list_icon = (ImageView) mlistView
 				.findViewById(R.id.allmenu_radio);
 		mAudio_list_icon = (ImageView) mlistView

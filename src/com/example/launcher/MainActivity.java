@@ -25,46 +25,80 @@ public class MainActivity extends FragmentActivity {
 	public final static int FRAGMENT_PAGE1 = 0;
 	public final static int FRAGMENT_PAGE2 = 1;
 	public static ViewPager mViewPager;
-	private BroadcastReceiver mReceiver = null;
-	
+	private BroadcastReceiver mReceiver1 = null;
+	private BroadcastReceiver mReceiver2 = null;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewpager_layout);
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(new pagerAdapter(getSupportFragmentManager()));
 		mViewPager.setCurrentItem(FRAGMENT_PAGE1);
+		
 
-		IntentFilter intentFilter = new IntentFilter();
-		intentFilter
+		IntentFilter intentFilter1 = new IntentFilter();
+		intentFilter1
 				.addAction("com.glowingpigs.tutorialstreamaudiopart1b.senddata");
+		
+		IntentFilter intentFilter2 = new IntentFilter();
+		intentFilter2
+				.addAction("com.glowingpigs.tutorialstreamaudiopart1b.curpos");
 
-		mReceiver = new BroadcastReceiver() {
+		mReceiver1 = new BroadcastReceiver() {
+
 			@Override
 			public void onReceive(Context context, Intent intent) {
+				String musicname;
+				String musiclength;
 				
-
-				Main_Page.name = intent.getStringExtra("MUSIC_NAME");
-				/*String max=intent.getStringExtra("MUSIC_MAX");
-				String curpos=intent.getStringExtra("MUSIC_CURPOS");
-				int pos=intent.getIntExtra("MUSIC_CURPOS", 0);
-				String temp=intent.getStringExtra("MUSIC_CURPOS");
-				Main_Page.music_max_length=Integer.parseInt(max);
-				Main_Page.music_cur_pos=Integer.parseInt(curpos);*/
-				Main_Page.execute_music_title.performClick();
+				/*Main_Page.name=intent.getStringExtra("MUSIC_NAME");
+				Main_Page.music_max_length=intent.getStringExtra("MUSIC_MAX");
+				Main_Page.max_length=Integer.parseInt(Main_Page.music_max_length);
+				Main_Page.execute_music_title.performClick();*/
 				
-				Toast.makeText(context,Main_Page.name, Toast.LENGTH_LONG).show();
+				musicname=intent.getStringExtra("MUSIC_NAME");
+				musiclength=intent.getStringExtra("MUSIC_MAX");
 				
-
+				if(musicname==null || musiclength==null)
+				{
+					Main_Page.name="Audio";
+					Main_Page.max_length=0;
+				}
+				else
+				{
+					Main_Page.name=intent.getStringExtra("MUSIC_NAME");
+					Main_Page.music_max_length=intent.getStringExtra("MUSIC_MAX");
+					Main_Page.max_length=Integer.parseInt(Main_Page.music_max_length);
+					Main_Page.execute_music_title.performClick();
+				}
+				
+				
+				
 			}
 		};
 
-		registerReceiver(mReceiver, intentFilter);
+		registerReceiver(mReceiver1, intentFilter1);
+		
+		mReceiver2 = new BroadcastReceiver() {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+
+				Main_Page.music_cur_pos=intent.getIntExtra("MUSIC_CUR_POS", 0);
+				//Toast.makeText(context, "°ª:"+Main_Page.music_cur_pos,
+						//Toast.LENGTH_LONG).show();
+			}
+		};
+
+		registerReceiver(mReceiver2, intentFilter2);
+		;
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		unregisterReceiver(mReceiver);
+		unregisterReceiver(mReceiver1);
+		unregisterReceiver(mReceiver2);
 		super.onDestroy();
 	}
 

@@ -122,11 +122,11 @@ public class Main_Page extends Fragment {
 	
 
 	private TextView mMusic_title;
-	public static Button execute_music_title;
+	static Button execute_music_title;
 	private ProgressBar music_progressbar;
-	public static int music_max_length;
-	public static int music_cur_pos;
-	
+	static String music_max_length;
+	static int music_cur_pos;
+	static int max_length;
 	private Handler mHandler;
 	TextView text;
 	DisplayMetrics dm;
@@ -302,7 +302,7 @@ public class Main_Page extends Fragment {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-
+			mAudioWidget = getActivity().findViewById(R.id.widget_audio);
 			/*
 			 * mRadioWidget = getActivity().findViewById(R.id.widget_radio);
 			 * mAudioWidget = getActivity().findViewById(R.id.widget_audio);
@@ -340,6 +340,7 @@ public class Main_Page extends Fragment {
 				break;
 			case AUDIO_ID: {
 				select = 1;
+				mAudioWidget.setVisibility(View.VISIBLE);
 				// text.setText("AUDIO");
 				// name=MainActivity.musicname;
 				// text.setText(name);
@@ -466,6 +467,9 @@ public class Main_Page extends Fragment {
 				break;
 			case R.id.music_title: {
 				mMusic_title.setText(name);
+				
+				music_progressbar.setMax(max_length);
+				//music_progressbar.setProgress(Main_Page.music_cur_pos);
 			}
 				break;
 			}
@@ -503,46 +507,40 @@ public class Main_Page extends Fragment {
 		mMusic_title = (TextView) mV.findViewById(R.id.widget_audio_text);
 		mMusic_title.setSelected(true);
 		
-		//music_progressbar=(ProgressBar)mV.findViewById(R.id.music_progressbar);
-		//mHandler=new Handler();
+		music_progressbar=(ProgressBar)mV.findViewById(R.id.music_progressbar);
+		//music_progressbar.setMax(100000);
+		mHandler=new Handler();
 		
 		text = (TextView) mV.findViewById(R.id.View1);
-		 
-		/*Thread thread=new Thread()
+		
+		Thread thread=new Thread()
 		{
-			
 			public void run()
 			{
-				while(true)
+				while(true )
 				{
 					Runnable callback=new Runnable() {
 						
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							music_progressbar.setMax(music_max_length);
 							music_progressbar.setProgress(music_cur_pos);
 							
 							
 						}
 					};
-					
 					Message message=Message.obtain(mHandler,callback);
 					mHandler.sendMessage(message);
-					
 					try {
 						Thread.sleep(1000);
 					} catch (Exception e) {
 						// TODO: handle exception
 						e.printStackTrace();
 					}
-					
-				
 				}
 			}
-			
 		};
-		thread.start();*/
+		thread.start();
 		mRadioSeletor = new StateListDrawable();
 		mAudioSeletor = new StateListDrawable();
 		mVideoSeletor = new StateListDrawable();
