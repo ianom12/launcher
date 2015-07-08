@@ -120,14 +120,15 @@ public class Main_Page extends Fragment {
 
 	private TextView mMusic_title;
 	private TextView mRadio_title;
-	
+
 	static String RADIO_TITLE;
 	static Button execute_music_title;
+
 	private ProgressBar music_progressbar;
 	static String music_max_length;
 	static int music_cur_pos;
 	static int max_length;
-	
+
 	private Handler mHandler_Music;
 	private Handler mHandler_Radio;
 	static TextView text;
@@ -318,14 +319,15 @@ public class Main_Page extends Fragment {
 				mAudioWidget.setVisibility(View.INVISIBLE);
 				mVideoWidget.setVisibility(View.INVISIBLE);
 				mClockWidget.setVisibility(View.INVISIBLE);
-				
+
 				mSend_App_Value.putExtra("appvalue", "1");
 				getActivity().sendBroadcast(mSend_App_Value);
-				
-				/*Intent i = new Intent();
-				i.setClassName("wseemann.media.fmpdemo",
-						"wseemann.media.fmpdemo.activity.FMPDemo");
-				startActivity(i);*/
+
+				/*
+				 * Intent i = new Intent();
+				 * i.setClassName("wseemann.media.fmpdemo",
+				 * "wseemann.media.fmpdemo.activity.FMPDemo"); startActivity(i);
+				 */
 
 				mRadioicon.setBackground(mRadioSeletor);
 
@@ -357,10 +359,10 @@ public class Main_Page extends Fragment {
 				mSend_App_Value.putExtra("appvalue", "2");
 				getActivity().sendBroadcast(mSend_App_Value);
 
-				/*Intent i = new Intent();
+				Intent i = new Intent();
 				i.setClassName("com.glowingpigs.tutorialstreamaudiopart1b",
 						"com.glowingpigs.tutorialstreamaudiopart1b.MyActivity");
-				startActivity(i);*/
+				startActivity(i);
 
 				mAudioicon.setBackground(mAudioSeletor);
 			}
@@ -390,11 +392,11 @@ public class Main_Page extends Fragment {
 				mSend_App_Value.putExtra("appvalue", "3");
 				getActivity().sendBroadcast(mSend_App_Value);
 
-				
-				 /*Intent i = new Intent();
-				 i.setClassName("com.example.videoplayer",
-				 "com.example.videoplayer.MainActivity"); startActivity(i);*/
-				 
+				/*
+				 * Intent i = new Intent();
+				 * i.setClassName("com.example.videoplayer",
+				 * "com.example.videoplayer.MainActivity"); startActivity(i);
+				 */
 
 				mVideoicon.setBackground(mVideoSeletor);
 			}
@@ -626,8 +628,8 @@ public class Main_Page extends Fragment {
 
 		mMusic_title = (TextView) mV.findViewById(R.id.widget_audio_text);
 		mMusic_title.setSelected(true);
-		
-		mRadio_title=(TextView)mV.findViewById(R.id.widget_radio_text);
+
+		mRadio_title = (TextView) mV.findViewById(R.id.widget_radio_text);
 		mRadio_title.setSelected(true);
 
 		music_progressbar = (ProgressBar) mV
@@ -636,10 +638,10 @@ public class Main_Page extends Fragment {
 		mSend_App_Value = new Intent();
 		mSend_App_Value.setAction("com.example.launcher.appvalue");
 		mSend_App_Value.setPackage("com.example.server_idb");
-		
+
 		mHandler_Music = new Handler();
 		mHandler_Radio = new Handler();
-		
+
 		text = (TextView) mV.findViewById(R.id.View1);
 
 		Thread thread_Music = new Thread() {
@@ -666,7 +668,7 @@ public class Main_Page extends Fragment {
 			}
 		};
 		thread_Music.start();
-		
+
 		Thread thread_Radio = new Thread() {
 			public void run() {
 				while (true) {
@@ -675,8 +677,8 @@ public class Main_Page extends Fragment {
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-								 
-								mRadio_title.setText(RADIO_TITLE);
+
+							mRadio_title.setText(RADIO_TITLE);
 
 						}
 					};
@@ -692,8 +694,7 @@ public class Main_Page extends Fragment {
 			}
 		};
 		thread_Radio.start();
-		
-		
+
 		mRadioSeletor = new StateListDrawable();
 		mAudioSeletor = new StateListDrawable();
 		mVideoSeletor = new StateListDrawable();

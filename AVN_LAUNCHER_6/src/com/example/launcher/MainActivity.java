@@ -24,7 +24,7 @@ public class MainActivity extends FragmentActivity {
 	private BroadcastReceiver mReceiver3 = null;
 	private BroadcastReceiver mReceiver4 = null;
 	private BroadcastReceiver mReceiver_radio = null;
-
+	private BroadcastReceiver mReceiver_audio_nextname = null;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewpager_layout);
@@ -51,6 +51,9 @@ public class MainActivity extends FragmentActivity {
 		
 		IntentFilter intentFilter_radio=new IntentFilter();
 		intentFilter_radio.addAction("wseemann.media.fmpdemo.sendname");
+		
+		IntentFilter intentFilter_audio_nextname=new IntentFilter();
+		intentFilter_audio_nextname.addAction("com.glowingpigs.tutorialstreamaudiopart1b.musicnextname");
 		
 
 		mReceiver1 = new BroadcastReceiver() {
@@ -129,11 +132,28 @@ public class MainActivity extends FragmentActivity {
 			
 		};
 		
+		
+		mReceiver_audio_nextname=new BroadcastReceiver(){
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				// TODO Auto-generated method stub
+				Main_Page.name=intent.getStringExtra("MUSIC_NEXT_NAME");
+				Main_Page.music_max_length=intent.getStringExtra("MUSIC_NEXT_MAX");
+				Toast.makeText(context,Main_Page.name,Toast.LENGTH_LONG).show();
+				Toast.makeText(context,Main_Page.music_max_length,Toast.LENGTH_LONG).show();
+				Main_Page.execute_music_title.performClick();
+			}
+			
+			
+		};
+		
 		registerReceiver(mReceiver1, intentFilter1);
 		registerReceiver(mReceiver2, intentFilter2);
 		registerReceiver(mReceiver3, intentFilter3);
 		registerReceiver(mReceiver4, intentFilter4);
 		registerReceiver(mReceiver_radio, intentFilter_radio);
+		registerReceiver(mReceiver_audio_nextname, intentFilter_audio_nextname);
 		
 		
 	}
